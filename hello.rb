@@ -1,18 +1,14 @@
 require 'sinatra'
 
-configure do 
-	enable :sessions
+get '/' do
+ 	response.set_cookie "foo", "bar"
+ 	"Cookie set. Would you like to <a href='/read'>read it</a>?"
+end
+get '/read' do
+ 	"Cookie has a value of: #{request.cookies['foo']}."
 end
 
-before do 
-	content_type :txt
-end
-
-get "/set" do 
-	session[:foo] = Time.now
-	"Session value set"
-end
-
-get "/fetch" do 
-	"session value #{session[:foo]}"
+get '/delete' do
+	response.delete_cookie "foo"
+ 	"Cookie has been deleted"
 end
