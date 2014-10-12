@@ -7,3 +7,7 @@ end
 get "/:name" do 
 	"Hello, #{params[:name]} and also #{params[:name2]} from the query string"
 end
+
+get "/*" do 
+	"you passed in #{params[:splat]}"
+end
