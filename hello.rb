@@ -1,7 +1,12 @@
 require 'sinatra'
 
+get "/public.html" do 
+	"This is delivered via a route"
+end
+
+
 get "/" do 
-	"hello!"
+	erb :index
 end
 
 get "/:name" do 
