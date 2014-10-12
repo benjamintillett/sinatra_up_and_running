@@ -1,26 +1,17 @@
 require 'sinatra'
 
-before do 
-	@before_value = "foo"
+configure do 
+	mime_type :plain, "text/plain"
 end
 
-configure do
- 	set :show_exceptions, false
+before "/plain-text" do 
+	content_type :plain
+end 
+
+get "/html" do
+	"<h1>You should see this as html text</h1>"
 end
 
-not_found do
-	 "Whoops! You requested a route that wasn't available."
-end
-
-get "/show_before" do 
-	"before value has been set to #{@before_value}"
-end
-
-get '/div_by_zero' do
-	 0 / 0
- 	"You won't see me."
-end
-
-error do
- 	"Y U NO WORK?"
+get "/plain-text" do
+	"<h1>You should see this as plane text</h1>"
 end
