@@ -1,18 +1,26 @@
 require 'sinatra'
 
-get "/public.html" do 
-	"This is delivered via a route"
+before do 
+	@before_value = "foo"
 end
 
-
-get "/" do 
-	erb :index
+configure do
+ 	set :show_exceptions, false
 end
 
-get "/:name" do 
-	"Hello, #{params[:name]} and also #{params[:name2]} from the query string"
+not_found do
+	 "Whoops! You requested a route that wasn't available."
 end
 
-get "/*" do 
-	"you passed in #{params[:splat]}"
+get "/show_before" do 
+	"before value has been set to #{@before_value}"
+end
+
+get '/div_by_zero' do
+	 0 / 0
+ 	"You won't see me."
+end
+
+error do
+ 	"Y U NO WORK?"
 end
