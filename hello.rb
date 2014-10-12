@@ -1,17 +1,10 @@
 require 'sinatra'
 
-configure do 
-	mime_type :plain, "text/plain"
+before do 
+	content_type :txt
 end
 
-before "/plain-text" do 
-	content_type :plain
-end 
-
-get "/html" do
-	"<h1>You should see this as html text</h1>"
-end
-
-get "/plain-text" do
-	"<h1>You should see this as plane text</h1>"
+get '/cache' do
+ expires 3600, :public, :must_revalidate
+ "This page rendered at #{Time.now}."
 end
