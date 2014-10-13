@@ -1,12 +1,22 @@
 require 'sinatra'
 
-require "./sinatra/post_get"
+helpers do 
+	def assert(condition)
+		fail "Something is really broken" unless condition
+	end
+end
 
 get "/" do 
-	erb :index
+
+	assert env["PATH_INFO"] == request.path_info
+
+	final_result = response.finish 
+	assert Array === final_result 
+	assert final_result.length == 3 
+	assert final_result.first == 200
+
+	"everything is fine"
+
 end
 
-post_get "/" do
-	"High #{params[:name]}"
-end
 
